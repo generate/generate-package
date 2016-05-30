@@ -1,0 +1,41 @@
+{
+  "name": "generate-package",
+  "description": "Generate a package.json for a project.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/generate/generate-package",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "generate/generate-package",
+  "bugs": {
+    "url": "https://github.com/generate/generate-package/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "generator.js",
+    "index.js",
+    "templates"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "keywords": [
+    "boilerplate",
+    "generate",
+    "generator",
+    "init",
+    "initialize",
+    "package",
+    "pkg",
+    "scaffold",
+    "scaffolding",
+    "templates"
+  ]
+}
