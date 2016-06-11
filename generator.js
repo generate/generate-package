@@ -22,12 +22,6 @@ module.exports = function(app) {
   app.engine('json', require('engine-base'));
 
   /**
-   * Load questions for prompts
-   */
-
-  app.use(utils.commonQuestions());
-
-  /**
    * Generate a `package.json` file to the working directory, or specified `-d` | `--dest`.
    * To use a different template, run the [package:choose](#packagechoose) task,
    * or pass the name on the `-t` or `--template` flag.
@@ -41,6 +35,8 @@ module.exports = function(app) {
 
   app.task('package', function() {
     app.data(app.base.cache.data);
+    app.use(utils.commonQuestions());
+
     return app.src(src(`${argv.t || 'default'}.json`))
       .pipe(app.renderFile('json'))
       .pipe(app.dest(dest(app)));
@@ -60,6 +56,8 @@ module.exports = function(app) {
   app.task('normalize', ['package-normalize']);
   app.task('package-normalize', function() {
     app.data(app.base.cache.data);
+    app.use(utils.commonQuestions());
+
     return app.src(src(`${name}.json`))
       .pipe(app.renderFile('json'))
       .pipe(utils.normalize())
@@ -79,6 +77,8 @@ module.exports = function(app) {
   app.task('choose', ['package-choose']);
   app.task('package-choose', function() {
     app.data(app.base.cache.data);
+    app.use(utils.commonQuestions());
+
     return app.src(src('*.json'))
       .pipe(utils.choose({key: 'stem'}))
       .pipe(app.renderFile('json'))
