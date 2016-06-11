@@ -72,6 +72,14 @@
     "plugins": [
       "gulp-format-md"
     ],
+    "related": {
+      "list": [
+        "generate",
+        "generate-file",
+        "generate-dest",
+        "generate-git"
+      ]
+    },
     "reflinks": [
       "generate",
       "normalize-pkg",
