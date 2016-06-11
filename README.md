@@ -91,7 +91,7 @@ If you do not see one or both of those events, please [let us know about it](../
 
 The following tasks are registered on the `package` generator. See the [Getting Started guide](https://github.com/generate/getting-started) to learn how to run tasks.
 
-#### [package](generator.js#L42)
+#### [package](generator.js#L37)
 
 Generate a `package.json` file to the working directory, or specified `-d` | `--dest`. To use a different template, run the [package:choose](#packagechoose) task, or pass the name on the `-t` or `--template` flag.
 
@@ -101,7 +101,7 @@ Generate a `package.json` file to the working directory, or specified `-d` | `--
 $ gen package
 ```
 
-#### [package:normalize](generator.js#L60)
+#### [package:normalize](generator.js#L57)
 
 Generate's a package.json file, same as the [package](#package) task, but also normalizes the result using [normalize-pkg](https://github.com/jonschlinkert/normalize-pkg).
 
@@ -111,7 +111,7 @@ Generate's a package.json file, same as the [package](#package) task, but also n
 $ gen package:normalize
 ```
 
-#### [package:choose](generator.js#L79)
+#### [package:choose](generator.js#L78)
 
 Prompts the user to choose the template to use for generating a `package.json` file to the working directory, or specified `-d` | `--dest`.
 
@@ -121,7 +121,7 @@ Prompts the user to choose the template to use for generating a `package.json` f
 $ gen package:choose
 ```
 
-#### [default](generator.js#L101)
+#### [default](generator.js#L102)
 
 Alias for the `package:normalize` task to allow running the generator with the following command:
 
@@ -132,6 +132,20 @@ $ gen package
 ```
 
 ### API
+
+This updater can also be used as a node.js library in your own updater. To do so you must first install generate-package locally.
+
+Install with [npm](https://www.npmjs.com/):
+
+```sh
+$ npm install --save generate-package
+```
+
+Then use in your project:
+
+```js
+var package = require('generate-package');
+```
 
 **Use as a plugin in your generator**
 

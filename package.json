@@ -1,6 +1,6 @@
 {
   "name": "generate-package",
-  "description": "Generate a package.json for a project. This generator can be used as a plugin or sub-generator in your own generator, a part of a larger build workflow.",
+  "description": "Generate a package.json for a project. This generator can be used as a plugin or sub-generator in your own generator, as a component of a larger build workflow.",
   "version": "0.1.0",
   "homepage": "https://github.com/jonschlinkert/generate-package",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
