@@ -1,18 +1,19 @@
 {
   "name": "generate-package",
-  "description": "Generate a package.json for a project.",
+  "description": "Generate a package.json for a project. This generator can be used as a plugin or sub-generator in your own generator, a part of a larger build workflow.",
   "version": "0.1.0",
-  "homepage": "https://github.com/generate/generate-package",
+  "homepage": "https://github.com/jonschlinkert/generate-package",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
-  "repository": "generate/generate-package",
+  "repository": "jonschlinkert/generate-package",
   "bugs": {
-    "url": "https://github.com/generate/generate-package/issues"
+    "url": "https://github.com/jonschlinkert/generate-package/issues"
   },
   "license": "MIT",
   "files": [
     "generator.js",
     "index.js",
-    "templates"
+    "templates",
+    "utils.js"
   ],
   "main": "index.js",
   "engines": {
@@ -22,20 +23,63 @@
     "test": "mocha"
   },
   "dependencies": {
+    "common-questions": "^0.2.1",
+    "engine-base": "^0.1.2",
+    "gulp-choose-files": "^0.1.1",
+    "gulp-normalize-pkg": "^0.1.1",
+    "gulp-pick-keys": "^0.1.1",
+    "is-valid-app": "^0.1.1",
+    "lazy-cache": "^2.0.1",
+    "yargs-parser": "^2.4.0"
   },
   "devDependencies": {
-    "mocha": "*"
+    "delete": "^0.3.2",
+    "generate": "^0.7.1",
+    "gulp-format-md": "^0.1.9",
+    "mocha": "^2.5.3"
   },
   "keywords": [
-    "boilerplate",
+    "build",
+    "cli",
+    "create",
+    "dev",
+    "development",
     "generate",
     "generator",
     "init",
     "initialize",
+    "json",
+    "new",
     "package",
+    "package-json",
     "pkg",
+    "project",
+    "projects",
     "scaffold",
+    "scaffolder",
     "scaffolding",
-    "templates"
-  ]
+    "template",
+    "templates",
+    "yeoman",
+    "yo"
+  ],
+  "verb": {
+    "toc": false,
+    "layout": "generator",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "reflinks": [
+      "generate",
+      "normalize-pkg",
+      "verb",
+      "verb-readme-generator"
+    ],
+    "lint": {
+      "reflinks": true
+    }
+  }
 }

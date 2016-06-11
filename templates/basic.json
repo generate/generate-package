@@ -8,32 +8,10 @@
   "bugs": {
     "url": "https://github.com/<%= ask('author.username') %>/<%= ask('project.name') %>/issues"
   },
-  "license": "MIT",
-  "files": [
-    "index.js"
-  ],
-  "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
     "test": "mocha"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "gulp-format-md": "*",
-    "mocha": "*"
-  },
-  "keywords": [],
-  "lintDeps": {
-    "ignore": []
-  },
-  "verb": {
-    "layout": "default",
-    "plugins": ["gulp-format-md"],
-    "related": {
-      "list": []
-    },
-    "reflinks": ["verb"]
   }
 }

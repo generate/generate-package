@@ -1,0 +1,17 @@
+{
+  "name": "<%= ask('project.name') %>",
+  "description": "<%= ask('project.description') %>",
+  "version": "<%= ask('project.version') %>",
+  "homepage": "https://github.com/<%= ask('author.username') %>/<%= ask('project.name') %>",
+  "author": "<%= ask('author.name') %> (<%= ask('author.url') %>)",
+  "repository": "<%= ask('author.username') %>/<%= ask('project.name') %>",
+  "bugs": {
+    "url": "https://github.com/<%= ask('author.username') %>/<%= ask('project.name') %>/issues"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
