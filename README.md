@@ -1,4 +1,4 @@
-# generate-package [![NPM version](https://img.shields.io/npm/v/generate-package.svg?style=flat)](https://www.npmjs.com/package/generate-package) [![NPM downloads](https://img.shields.io/npm/dm/generate-package.svg?style=flat)](https://npmjs.org/package/generate-package) [![Build Status](https://img.shields.io/travis/jonschlinkert/generate-package.svg?style=flat)](https://travis-ci.org/jonschlinkert/generate-package)
+# generate-package [![NPM version](https://img.shields.io/npm/v/generate-package.svg?style=flat)](https://www.npmjs.com/package/generate-package) [![NPM downloads](https://img.shields.io/npm/dm/generate-package.svg?style=flat)](https://npmjs.org/package/generate-package) [![Build Status](https://img.shields.io/travis/generate/generate-package.svg?style=flat)](https://travis-ci.org/generate/generate-package)
 
 When scaffolding out a new project, this generator simply automates the creation of package.json file, making it a continuous part of the build workflow.
 
@@ -28,7 +28,7 @@ Install the `generate-package` generator:
 $ npm install --global generate-package
 ```
 
-Run `generate-package` to generate a `.travis.yml` file:
+Run `generate-package` to generate a `package.json` file:
 
 ```sh
 $ gen package
