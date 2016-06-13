@@ -12,8 +12,9 @@ module.exports = function(app) {
    * Build variables
    */
 
-  var src = path.resolve.bind(path, __dirname, 'templates');
   var name = argv.t || 'default';
+  var src = path.resolve.bind(path, __dirname, 'templates');
+  var dir = app.options.dest || app.cwd;
 
   /**
    * Engine to use for rendering templates
@@ -22,7 +23,7 @@ module.exports = function(app) {
   app.engine('json', require('engine-base'));
 
   /**
-   * Generate a `package.json` file to the working directory, or specified `-d` | `--dest`.
+   * Generate a `package.json` file to the cwd. (to customize destination use [generate-dest][]).
    * To use a different template, run the [package:choose](#packagechoose) task,
    * or pass the name on the `-t` or `--template` flag.
    *
@@ -39,7 +40,9 @@ module.exports = function(app) {
 
     return app.src(src(`${argv.t || 'default'}.json`))
       .pipe(app.renderFile('json'))
-      .pipe(app.dest(dest(app)));
+      .pipe(rename('package.json'))
+      .pipe(app.conflicts(dir))
+      .pipe(app.dest(dir));
   });
 
   /**
@@ -61,7 +64,9 @@ module.exports = function(app) {
     return app.src(src(`${name}.json`))
       .pipe(app.renderFile('json'))
       .pipe(utils.normalize())
-      .pipe(app.dest(dest(app)));
+      .pipe(rename('package.json'))
+      .pipe(app.conflicts(dir))
+      .pipe(app.dest(dir));
   });
 
   /**
@@ -84,7 +89,9 @@ module.exports = function(app) {
       .pipe(app.renderFile('json'))
       .pipe(utils.normalize())
       .pipe(utils.pick())
-      .pipe(app.dest(dest(app)));
+      .pipe(rename('package.json'))
+      .pipe(app.conflicts(dir))
+      .pipe(app.dest(dir));
   });
 
   /**
@@ -102,12 +109,12 @@ module.exports = function(app) {
 };
 
 /**
- * Create the destination path
+ * Rename the file before checking with `base-conflicts`
  */
 
-function dest(app) {
-  return function(file) {
-    file.basename = 'package.json';
-    return app.options.dest || app.cwd;
-  };
+function rename(name) {
+  return utils.through.obj(function(file, enc, next) {
+    file.basename = name;
+    next(null, file);
+  });
 }
