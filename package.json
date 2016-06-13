@@ -45,6 +45,7 @@
     "dev",
     "development",
     "generate",
+    "generateplugin",
     "generator",
     "init",
     "initialize",
@@ -53,6 +54,7 @@
     "package",
     "package-json",
     "pkg",
+    "plugin",
     "project",
     "projects",
     "scaffold",
@@ -75,13 +77,14 @@
     "related": {
       "list": [
         "generate",
-        "generate-file",
         "generate-dest",
+        "generate-file",
         "generate-git"
       ]
     },
     "reflinks": [
       "generate",
+      "generate-dest",
       "normalize-pkg",
       "verb",
       "verb-readme-generator"
