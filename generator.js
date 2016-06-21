@@ -37,7 +37,7 @@ module.exports = function(app, base, env) {
    * @api public
    */
 
-  app.task('package', function() {
+  app.task('package', ['package-data'], function() {
     return app.toStream('templates', pickFile(app))
       .pipe(app.renderFile('*'))
       .pipe(utils.normalize())
@@ -55,7 +55,7 @@ module.exports = function(app, base, env) {
    * @api public
    */
 
-  app.task('package-raw', function() {
+  app.task('package-raw', ['package-data'], function() {
     return app.toStream('templates', pickFile(app))
       .pipe(app.renderFile('*'))
       .pipe(app.conflicts(dir))
@@ -73,7 +73,7 @@ module.exports = function(app, base, env) {
    */
 
   app.task('choose', ['package-choose']);
-  app.task('package-choose', function() {
+  app.task('package-choose', ['package-data'], function() {
     return app.toStream('templates')
       .pipe(utils.choose({key: 'stem'}))
       .pipe(app.renderFile('*'))
@@ -109,7 +109,7 @@ module.exports = function(app, base, env) {
    * @name default
    */
 
-  app.task('default', ['package-data', 'package']);
+  app.task('default', ['package']);
 };
 
 /**
