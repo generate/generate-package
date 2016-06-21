@@ -1,3 +1,7 @@
+---
+rename:
+  basename: 'package.json'
+---
 {
   "name": "<%= ask('project.name') %>",
   "description": "<%= ask('project.description') %>",

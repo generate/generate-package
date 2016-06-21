@@ -5,14 +5,16 @@ var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
 var generate = require('generate');
+var gm = require('global-modules');
+var existsSync = require('fs-exists-sync');
 var del = require('delete');
 var generator = require('./');
 var app;
 
-var cwd = path.resolve.bind(path, __dirname, 'actual');
+var actual = path.resolve.bind(path, __dirname, 'actual');
 
 function exists(name, cb) {
-  var filepath = cwd(name);
+  var filepath = actual(name);
 
   return function(err) {
     if (err) return cb(err);
@@ -27,8 +29,8 @@ function exists(name, cb) {
 describe('generate-package', function() {
   beforeEach(function() {
     app = generate({silent: true});
-    app.cwd = cwd();
-    app.option('dest', cwd());
+    app.cwd = actual();
+    app.option('dest', actual());
     app.option('askWhen', 'not-answered');
 
     // provide template data to avoid prompts
@@ -67,18 +69,61 @@ describe('generate-package', function() {
       assert(app.tasks.hasOwnProperty('package'));
     });
 
-    it('should run the `default` task', function(cb) {
+    it('should run the `default` task with .build', function(cb) {
+      app.use(generator);
+      app.build('default', exists('package.json', cb));
+    });
+
+    it('should run the `default` task with .generate', function(cb) {
       app.use(generator);
       app.generate('default', exists('package.json', cb));
     });
 
-    it('should run the `package` task', function(cb) {
+    it('should run the `package` task with .build', function(cb) {
+      app.use(generator);
+      app.build('package', exists('package.json', cb));
+    });
+
+    it('should run the `package` task with .generate', function(cb) {
       app.use(generator);
       app.generate('package', exists('package.json', cb));
     });
+
+    it('should run the `package-raw` task with .build', function(cb) {
+      app.use(generator);
+      app.build('package-raw', exists('package.json', cb));
+    });
+
+    it('should run the `package-raw` task with .generate', function(cb) {
+      app.use(generator);
+      app.generate('package-raw', exists('package.json', cb));
+    });
   });
 
-  describe('generator', function() {
+  if (!process.env.CI && !process.env.TRAVIS) {
+    if (!existsSync(path.resolve(gm, 'generate-package'))) {
+      console.log('generate-package is not installed globally, skipping CLI tests');
+    } else {
+      describe('generator (CLI)', function() {
+        it('should run the default task using the `generate-package` name', function(cb) {
+          app.use(generator);
+          app.generate('generate-package', exists('package.json', cb));
+        });
+
+        it('should run the default task using the `package` generator alias', function(cb) {
+          app.use(generator);
+          app.generate('package', exists('package.json', cb));
+        });
+
+        it('should run the package task explicitly using the `package` generator alias', function(cb) {
+          app.use(generator);
+          app.generate('package:package', exists('package.json', cb));
+        });
+      });
+    }
+  }
+
+  describe('generator (API)', function() {
     it('should run the default task on the generator', function(cb) {
       app.register('package', generator);
       app.generate('package', exists('package.json', cb));
@@ -91,7 +136,39 @@ describe('generate-package', function() {
 
     it('should run the `package` task', function(cb) {
       app.register('package', generator);
-      app.generate('package:normalize', exists('package.json', cb));
+      app.generate('package:package', exists('package.json', cb));
+    });
+
+    it('should run the `package-raw` task', function(cb) {
+      app.register('package', generator);
+      app.generate('package:package-raw', exists('package.json', cb));
+    });
+
+    it('should only generate the `package.json` default file, no others', function(cb) {
+      app.register('package', generator);
+
+      app.generate('package', function(err) {
+        if (err) return cb(err);
+        var fp = actual('package.json');
+        assert(existsSync(fp));
+        var pkg = JSON.parse(fs.readFileSync(fp, 'utf8'));
+        assert(pkg.hasOwnProperty('license'));
+        del(path.dirname(fp), cb);
+      });
+    });
+
+    it('should only generate the specified file, no others', function(cb) {
+      app.register('package', generator);
+      app.option('file', 'basic');
+
+      app.generate('package', function(err) {
+        if (err) return cb(err);
+        var fp = actual('package.json');
+        assert(existsSync(fp));
+        var pkg = JSON.parse(fs.readFileSync(fp, 'utf8'));
+        assert(!pkg.hasOwnProperty('license'));
+        del(path.dirname(fp), cb);
+      });
     });
   });
 
@@ -117,11 +194,20 @@ describe('generate-package', function() {
       app.generate('foo.package:default', exists('package.json', cb));
     });
 
-    it('should run the `package:normalize` task', function(cb) {
+    it('should run the `package:package` task', function(cb) {
       app.register('foo', function(foo) {
         foo.register('package', generator);
       });
-      app.generate('foo.package:normalize', exists('package.json', cb));
+      app.generate('foo.package:package', exists('package.json', cb));
+    });
+
+    it('should work with nested sub-generators', function(cb) {
+      app
+        .register('foo', generator)
+        .register('bar', generator)
+        .register('baz', generator)
+
+      app.generate('foo.bar.baz', exists('package.json', cb));
     });
   });
 });
