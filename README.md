@@ -71,9 +71,7 @@ module.exports = function(app) {
 };
 ```
 
-## Docs
-
-### CLI
+## CLI
 
 **Installing the CLI**
 
@@ -111,13 +109,19 @@ If completed successfully, you should see both `starting` and `finished` events 
 
 If you do not see one or both of those events, please [let us know about it](../../issues).
 
-### Tasks
+## Tasks
+
+If you also have [generate-dest](https://github.com/generate/generate-dest) installed globally, you can run `dest` before any of the tasks to customize the destination directory. For example:
+
+```sh
+$ gen dest package
+```
 
 The following tasks are registered on the `package` generator. See the [Getting Started guide](https://github.com/generate/getting-started) to learn how to run tasks.
 
-#### [package](generator.js#L37)
+#### [package](generator.js#L40)
 
-Generate a `package.json` file to the cwd. (to customize destination use [generate-dest](https://github.com/generate/generate-dest)). To use a different template, run the [package:choose](#packagechoose) task, or pass the name on the `-t` or `--template` flag.
+Generate's a package.json file, same as the [package](#package) task, but also normalizes the result using [normalize-pkg](https://github.com/jonschlinkert/normalize-pkg).
 
 **Example**
 
@@ -125,17 +129,17 @@ Generate a `package.json` file to the cwd. (to customize destination use [genera
 $ gen package
 ```
 
-#### [package:normalize](generator.js#L59)
+#### [package:](generator.js#L58)
 
-Generate's a package.json file, same as the [package](#package) task, but also normalizes the result using [normalize-pkg](https://github.com/jonschlinkert/normalize-pkg).
+Generate a `package.json` file in the cwd. To use a different template, run the [package:choose](#packagechoose) task, or pass the name on the `-t` or `--template` flag.
 
 **Example**
 
 ```sh
-$ gen package:normalize
+$ gen package:
 ```
 
-#### [package:choose](generator.js#L82)
+#### [package:choose](generator.js#L75)
 
 Prompts the user to choose the template to use for generating a `package.json` file to the working directory, or specified `-d` | `--dest`.
 
@@ -145,17 +149,17 @@ Prompts the user to choose the template to use for generating a `package.json` f
 $ gen package:choose
 ```
 
-#### [default](generator.js#L108)
+#### [package:package.data](generator.js#L96)
 
-Alias for the `package:normalize` task to allow running the generator with the following command:
+Lazily merge data from the `base` instance onto the context.
 
 **Example**
 
 ```sh
-$ gen package
+$ gen package:package-data
 ```
 
-### API
+## API
 
 This updater can also be used as a node.js library in your own updater. To do so you must first install generate-package locally.
 
@@ -214,9 +218,9 @@ To learn more about namespaces and sub-generators, and how they work, [visit the
 
 You might also be interested in these projects:
 
-* [generate](https://www.npmjs.com/package/generate): Fast, composable, highly pluggable project generator with a user-friendly and expressive API. | [homepage](https://github.com/generate/generate "Fast, composable, highly pluggable project generator with a user-friendly and expressive API.")
-* [generate-dest](https://www.npmjs.com/package/generate-dest): Generate`generator that prompts the user for the destination directory to use. Can be used… [more](https://github.com/generate/generate-dest) | [homepage](https://github.com/generate/generate-dest "`Generate` generator that prompts the user for the destination directory to use. Can be used as a sub-generator or plugin in your generator.")
 * [generate-file](https://www.npmjs.com/package/generate-file): Generator for generating a single file from a template. | [homepage](https://github.com/generate/generate-file "Generator for generating a single file from a template.")
+* [generate](https://www.npmjs.com/package/generate): The Santa Claus machine for GitHub projects. Scaffolds out new projects, or creates any kind… [more](https://github.com/generate/generate) | [homepage](https://github.com/generate/generate "The Santa Claus machine for GitHub projects. Scaffolds out new projects, or creates any kind of required file or document from any given templates or source materials.")
+* [generate-dest](https://www.npmjs.com/package/generate-dest): Generate`generator that prompts the user for the destination directory to use. Can be used… [more](https://github.com/generate/generate-dest) | [homepage](https://github.com/generate/generate-dest "`Generate` generator that prompts the user for the destination directory to use. Can be used as a sub-generator or plugin in your generator.")
 * [generate-git](https://www.npmjs.com/package/generate-git): Generator for initializing a git repository and adding first commit. | [homepage](https://github.com/generate/generate-git "Generator for initializing a git repository and adding first commit.")
 
 ## Contributing
@@ -251,8 +255,8 @@ $ npm install -d && npm test
 ## License
 
 Copyright © 2016, [Jon Schlinkert](https://github.com/jonschlinkert).
-Released under the [MIT license](LICENSE).
+Released under the [MIT license](https://github.com/generate/generate-package/blob/master/LICENSE).
 
 ***
 
-_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on June 13, 2016._
+_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on June 21, 2016._
