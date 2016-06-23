@@ -144,7 +144,7 @@ describe('generate-package', function() {
       app.generate('package:package-raw', exists('package.json', cb));
     });
 
-    it('should only generate the `package.json` default file, no others', function(cb) {
+    it('should `package.json` default file', function(cb) {
       app.register('package', generator);
 
       app.generate('package', function(err) {
@@ -153,20 +153,6 @@ describe('generate-package', function() {
         assert(existsSync(fp));
         var pkg = JSON.parse(fs.readFileSync(fp, 'utf8'));
         assert(pkg.hasOwnProperty('license'));
-        del(path.dirname(fp), cb);
-      });
-    });
-
-    it('should only generate the specified file, no others', function(cb) {
-      app.register('package', generator);
-      app.option('file', 'basic');
-
-      app.generate('package', function(err) {
-        if (err) return cb(err);
-        var fp = actual('package.json');
-        assert(existsSync(fp));
-        var pkg = JSON.parse(fs.readFileSync(fp, 'utf8'));
-        assert(!pkg.hasOwnProperty('license'));
         del(path.dirname(fp), cb);
       });
     });
