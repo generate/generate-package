@@ -11,7 +11,7 @@ module.exports = function(app, base, env) {
    */
 
   var src = path.resolve.bind(path, __dirname, 'templates');
-  var dir = app.options.dest || app.cwd;
+  var dir = app.options.dest || app.cwd || process.cwd();
 
   /**
    * Register other generators as plugins
@@ -19,12 +19,6 @@ module.exports = function(app, base, env) {
 
   app.use(require('generate-collections'));
   app.use(require('generate-defaults'));
-
-  /**
-   * Load templates
-   */
-
-  app.template('*.json', {cwd: src()});
 
   /**
    * Generate's a package.json file, same as the [package](#package) task, but also
@@ -37,7 +31,7 @@ module.exports = function(app, base, env) {
    * @api public
    */
 
-  app.task('package', ['package-data'], function() {
+  app.task('package', ['package-setup'], function() {
     return app.toStream('templates', pickFile(app))
       .pipe(app.renderFile('*'))
       .pipe(utils.normalize())
@@ -55,7 +49,7 @@ module.exports = function(app, base, env) {
    * @api public
    */
 
-  app.task('package-raw', ['package-data'], function() {
+  app.task('package-raw', ['package-setup'], function() {
     return app.toStream('templates', pickFile(app))
       .pipe(app.renderFile('*'))
       .pipe(app.conflicts(dir))
@@ -73,7 +67,7 @@ module.exports = function(app, base, env) {
    */
 
   app.task('choose', ['package-choose']);
-  app.task('package-choose', ['package-data'], function() {
+  app.task('package-choose', ['package-setup'], function() {
     return app.toStream('templates')
       .pipe(utils.choose({key: 'stem'}))
       .pipe(app.renderFile('*'))
@@ -87,15 +81,16 @@ module.exports = function(app, base, env) {
    * Lazily merge data from the `base` instance onto the context.
    *
    * ```sh
-   * $ gen package:package-data
+   * $ gen package:package-setup
    * ```
    * @name package:package.data
    * @api public
    */
 
-  app.task('package-data', function(cb) {
+  app.task('package-setup', function(cb) {
     app.data(app.base.cache.data);
     app.use(utils.commonQuestions());
+    app.template('*.json', {cwd: src()});
     cb();
   });
 
