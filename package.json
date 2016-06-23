@@ -27,11 +27,11 @@
   "dependencies": {
     "common-questions": "^0.2.4",
     "generate-collections": "^0.3.4",
-    "generate-defaults": "^0.3.0",
-    "gulp-choose-files": "^0.1.1",
-    "gulp-normalize-pkg": "^0.1.1",
+    "generate-defaults": "^0.3.1",
+    "gulp-choose-files": "^0.1.2",
+    "gulp-normalize-pkg": "^0.1.2",
     "gulp-pick-keys": "^0.1.1",
-    "is-valid-app": "^0.1.1",
+    "is-valid-app": "^0.1.2",
     "lazy-cache": "^2.0.1"
   },
   "devDependencies": {
@@ -43,11 +43,18 @@
     "mocha": "^2.5.3"
   },
   "keywords": [
+    "app",
+    "boilerplate",
     "build",
     "cli",
+    "cli-app",
+    "command-line",
     "create",
     "dev",
     "development",
+    "framework",
+    "front",
+    "frontend",
     "generate",
     "generateplugin",
     "generator",
@@ -66,6 +73,9 @@
     "scaffolding",
     "template",
     "templates",
+    "tool",
+    "web",
+    "webapp",
     "yeoman",
     "yo"
   ],
