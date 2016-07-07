@@ -66,7 +66,10 @@ describe('generate-package', function() {
     it('should extend tasks onto the instance', function() {
       app.use(generator);
       assert(app.tasks.hasOwnProperty('default'));
-      assert(app.tasks.hasOwnProperty('package'));
+      assert(app.tasks.hasOwnProperty('new'));
+      assert(app.tasks.hasOwnProperty('raw'));
+      assert(app.tasks.hasOwnProperty('choose'));
+      assert(app.tasks.hasOwnProperty('setup'));
     });
 
     it('should run the `default` task with .build', function(cb) {
@@ -79,9 +82,9 @@ describe('generate-package', function() {
       app.generate('default', exists('package.json', cb));
     });
 
-    it('should run the `package` task with .build', function(cb) {
+    it('should run the `new` task with .build', function(cb) {
       app.use(generator);
-      app.build('package', exists('package.json', cb));
+      app.build('new', exists('package.json', cb));
     });
 
     it('should run the `package` task with .generate', function(cb) {
@@ -89,14 +92,14 @@ describe('generate-package', function() {
       app.generate('package', exists('package.json', cb));
     });
 
-    it('should run the `package-raw` task with .build', function(cb) {
+    it('should run the `raw` task with .build', function(cb) {
       app.use(generator);
-      app.build('package-raw', exists('package.json', cb));
+      app.build('raw', exists('package.json', cb));
     });
 
-    it('should run the `package-raw` task with .generate', function(cb) {
+    it('should run the `raw` task with .generate', function(cb) {
       app.use(generator);
-      app.generate('package-raw', exists('package.json', cb));
+      app.generate('raw', exists('package.json', cb));
     });
   });
 
@@ -117,7 +120,7 @@ describe('generate-package', function() {
 
         it('should run the package task explicitly using the `package` generator alias', function(cb) {
           app.use(generator);
-          app.generate('package:package', exists('package.json', cb));
+          app.generate('package:new', exists('package.json', cb));
         });
       });
     }
@@ -134,14 +137,14 @@ describe('generate-package', function() {
       app.generate('package:default', exists('package.json', cb));
     });
 
-    it('should run the `package` task', function(cb) {
+    it('should run the `new` task', function(cb) {
       app.register('package', generator);
-      app.generate('package:package', exists('package.json', cb));
+      app.generate('package:new', exists('package.json', cb));
     });
 
-    it('should run the `package-raw` task', function(cb) {
+    it('should run the `raw` task', function(cb) {
       app.register('package', generator);
-      app.generate('package:package-raw', exists('package.json', cb));
+      app.generate('package:raw', exists('package.json', cb));
     });
 
     it('should `package.json` default file', function(cb) {
@@ -180,11 +183,11 @@ describe('generate-package', function() {
       app.generate('foo.package:default', exists('package.json', cb));
     });
 
-    it('should run the `package:package` task', function(cb) {
+    it('should run the `package:new` task', function(cb) {
       app.register('foo', function(foo) {
         foo.register('package', generator);
       });
-      app.generate('foo.package:package', exists('package.json', cb));
+      app.generate('foo.package:new', exists('package.json', cb));
     });
 
     it('should work with nested sub-generators', function(cb) {
