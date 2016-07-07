@@ -1,16 +1,15 @@
 {
   "name": "generate-package",
-  "description": "Generate a package.json for a project. This generator can be used as a plugin or sub-generator in your own generator, as a component of a larger build workflow.",
+  "description": "Generate a package.json from a pre-defined or user-defined template. This generator can be used from the command line when globally installed, or as a plugin or sub-generator in your own generator.",
   "version": "0.2.2",
   "homepage": "https://github.com/generate/generate-package",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/generate-package",
   "bugs": {
-    "url": "https://github.com/jonschlinkert/generate-package/issues"
+    "url": "https://github.com/generate/generate-package/issues"
   },
   "license": "MIT",
   "files": [
-    "generator.js",
     "index.js",
     "LICENSE",
     "README.md",
@@ -26,6 +25,7 @@
   },
   "dependencies": {
     "common-questions": "^0.2.4",
+    "fs-exists-sync": "^0.1.0",
     "generate-collections": "^0.3.4",
     "generate-defaults": "^0.3.1",
     "gulp-choose-files": "^0.1.2",
@@ -36,7 +36,6 @@
   },
   "devDependencies": {
     "delete": "^0.3.2",
-    "fs-exists-sync": "^0.1.0",
     "generate": "^0.7.1",
     "global-modules": "^0.2.2",
     "gulp-format-md": "^0.1.9",
@@ -56,6 +55,7 @@
     "front",
     "frontend",
     "generate",
+    "generategenerator",
     "generateplugin",
     "generator",
     "init",
@@ -80,8 +80,8 @@
     "yo"
   ],
   "verb": {
-    "toc": false,
-    "layout": "generator",
+    "toc": true,
+    "layout": "common-minimal",
     "tasks": [
       "readme"
     ],
@@ -90,15 +90,17 @@
     ],
     "related": {
       "list": [
-        "generate",
         "generate-dest",
         "generate-file",
         "generate-git"
       ]
     },
     "reflinks": [
+      "assemble",
+      "base",
       "generate",
       "generate-dest",
+      "gulp",
       "normalize-pkg",
       "verb",
       "verb-readme-generator"
