@@ -106,6 +106,7 @@ module.exports = function(app, base, env) {
    * @name default
    */
 
+  app.task('package', ['new']);
   app.task('default', ['new']);
 };
 
