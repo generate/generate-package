@@ -17,7 +17,6 @@ Generate a package.json from a pre-defined or user-defined template. This genera
 - [Customization](#customization)
   * [Destination directory](#destination-directory)
   * [Overriding templates](#overriding-templates)
-- [Customization](#customization-1)
 - [About](#about)
   * [Related projects](#related-projects)
   * [Contributing](#contributing)
@@ -71,7 +70,7 @@ $ gen package
 
 **What will happen?**
 
-Running `$ gen package` will run the generator's [default task](#packagedefault), which creates a new `package.json` file in the current working directory.
+Running `$ gen package` will run the generator's [default task](#packagedefault), which creates a new `package.json` file in the current working directory. The template can be [customized](#customization).
 
 ### Running tasks
 
@@ -200,17 +199,9 @@ $ gen dest package
 
 ### Overriding templates
 
-You can override any of the templates by adding a template of the same name to the `templates` directory in user home. For example, to override the `.editorconfig` template, add a template at the following path `~/templates/.editorconfig`.
+You can override a template by adding a template of the same name to the `templates` directory in user home.
 
-[docs](https://github.com/generate/generate/blob/master/docs/): {$= platform.docs %}/
-
-## Customization
-
-The following instructions can be used to override settings in `generate-package`. Visit the [Generate documentation](https://github.com/generate/generate/blob/master/docs/){overriding-defaults.md} to learn about other ways to override defaults.
-
-**Overriding the template**
-
-You can override a template by adding a template of the same name to the `templates` directory in user home. For example, to override the `package.json` template, add a template at the following path `~/generate/generate-package/templates/package.json`, where `~/` is the user-home directory that `os.homedir()` resolves to on your system.
+For example, to override the `package.json` template, add a template at the following path `~/generate/generate-package/templates/package.json`, where `~/` is the user-home directory that `os.homedir()` resolves to on your system.
 
 ## About
 
