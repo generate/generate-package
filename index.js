@@ -19,6 +19,10 @@ module.exports = function(app, base, env) {
 
   app.use(require('generate-collections'));
   app.use(require('generate-defaults'));
+  app.postWrite(/package\.json/, function(file, next) {
+    app.pkg.data = JSON.parse(file.content);
+    next();
+  });
 
   /**
    * Create a new package.json file, same as the [raw](#packageraw) task, but also
