@@ -3,14 +3,14 @@ rename:
   basename: 'package.json'
 ---
 {
-  "name": "<%= ask('project.name') %>",
-  "description": "<%= ask('project.description') %>",
-  "version": "<%= ask('project.version') %>",
-  "homepage": "https://github.com/<%= ask('author.username') %>/<%= ask('project.name') %>",
+  "name": "<%= ask('name') %>",
+  "description": "<%= ask('description') %>",
+  "version": "<%= ask('version') %>",
+  "homepage": "https://github.com/<%= ask('author.username') %>/<%= ask('name') %>",
   "author": "<%= ask('author.name') %> (<%= ask('author.url') %>)",
-  "repository": "<%= ask('author.username') %>/<%= ask('project.name') %>",
+  "repository": "<%= ask('author.username') %>/<%= ask('name') %>",
   "bugs": {
-    "url": "https://github.com/<%= ask('author.username') %>/<%= ask('project.name') %>/issues"
+    "url": "https://github.com/<%= ask('author.username') %>/<%= ask('name') %>/issues"
   },
   "engines": {
     "node": ">=0.10.0"
