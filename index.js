@@ -11,7 +11,6 @@ module.exports = function(app, base, env) {
    */
 
   var src = path.resolve.bind(path, __dirname, 'templates');
-  var dir = app.options.dest || app.cwd || process.cwd();
 
   /**
    * Use other generators as plugins
@@ -36,11 +35,12 @@ module.exports = function(app, base, env) {
    */
 
   app.task('new', ['setup'], function() {
-    return app.toStream('templates', pickFile(app))
+    var cwd = app.options.dest || app.cwd;
+    return app.src(src('*.json'))
       .pipe(app.renderFile('*'))
       .pipe(utils.normalize())
-      .pipe(app.conflicts(dir))
-      .pipe(app.dest(dir));
+      .pipe(app.conflicts(cwd))
+      .pipe(app.dest(cwd));
   });
 
   /**
@@ -56,10 +56,11 @@ module.exports = function(app, base, env) {
    */
 
   app.task('raw', ['setup'], function() {
-    return app.toStream('templates', pickFile(app))
+    var cwd = app.options.dest || app.cwd;
+    return app.src(src('*.json'))
       .pipe(app.renderFile('*'))
-      .pipe(app.conflicts(dir))
-      .pipe(app.dest(dir));
+      .pipe(app.conflicts(cwd))
+      .pipe(app.dest(cwd));
   });
 
   /**
@@ -73,13 +74,14 @@ module.exports = function(app, base, env) {
    */
 
   app.task('choose', ['setup'], function() {
-    return app.toStream('templates')
+    var cwd = app.options.dest || app.cwd;
+    return app.src(src('*.json'))
       .pipe(utils.choose({key: 'stem'}))
       .pipe(app.renderFile('*'))
       .pipe(utils.normalize())
       .pipe(utils.pick())
-      .pipe(app.conflicts(dir))
-      .pipe(app.dest(dir));
+      .pipe(app.conflicts(cwd))
+      .pipe(app.dest(cwd));
   });
 
   /**
@@ -96,7 +98,7 @@ module.exports = function(app, base, env) {
   app.task('setup', function(cb) {
     app.data(app.base.cache.data);
     app.use(utils.commonQuestions());
-    app.template('*.json', {cwd: src()});
+    app.template(src('*.json'));
     cb();
   });
 
@@ -113,21 +115,3 @@ module.exports = function(app, base, env) {
   app.task('package', ['new']);
   app.task('default', ['new']);
 };
-
-/**
- * Pick the file to render. If the user specifies a `--file`, use that,
- * otherwise use the default `$package.json` template
- */
-
-function pickFile(app, fallback) {
-  return function(key, file) {
-    return file.stem === (app.option('file') || fallback || 'package');
-  };
-}
-
-function userFile(app, name) {
-  var file = app.home('updater-package/templates', name);
-  if (utils.exists(file)) {
-    return file;
-  }
-}
