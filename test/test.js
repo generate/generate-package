@@ -8,9 +8,10 @@ var generate = require('generate');
 var gm = require('global-modules');
 var existsSync = require('fs-exists-sync');
 var del = require('delete');
-var generator = require('./');
+var generator = require('..');
 var app;
 
+var fixtures = path.resolve.bind(path, __dirname, 'fixtures');
 var actual = path.resolve.bind(path, __dirname, 'actual');
 
 function exists(name, cb) {
@@ -21,7 +22,7 @@ function exists(name, cb) {
 
     fs.stat(filepath, function(err, stat) {
       assert(stat);
-      del(path.dirname(filepath), cb);
+      del(actual(), cb);
     });
   }
 }
@@ -40,6 +41,9 @@ describe('generate-package', function() {
         username: 'jonschlnkert',
         url: 'https://github.com/jonschlinkert'
       },
+      name: 'foo',
+      description: 'bar',
+      version: '0.1.0',
       project: {
         name: 'foo',
         description: 'bar',
