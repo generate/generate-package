@@ -98,7 +98,9 @@ module.exports = function(app, base, env) {
    */
 
   app.task('package-hints', {silent: true}, function(cb) {
-    app.data(app.base.cache.data);
+    if (app.options.hints !== false) {
+      app.data(app.base.cache.data);
+    }
     cb();
   });
 

@@ -70,10 +70,10 @@ describe('generate-package', function() {
     it('should extend tasks onto the instance', function() {
       app.use(generator);
       assert(app.tasks.hasOwnProperty('default'));
-      assert(app.tasks.hasOwnProperty('new'));
-      assert(app.tasks.hasOwnProperty('raw'));
-      assert(app.tasks.hasOwnProperty('choose'));
-      assert(app.tasks.hasOwnProperty('setup'));
+      assert(app.tasks.hasOwnProperty('package-new'));
+      assert(app.tasks.hasOwnProperty('package-raw'));
+      assert(app.tasks.hasOwnProperty('package-choose'));
+      assert(app.tasks.hasOwnProperty('package-hints'));
     });
 
     it('should run the `default` task with .build', function(cb) {
