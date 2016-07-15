@@ -12,8 +12,11 @@
   * [Install](#install)
   * [Run](#run)
   * [Help](#help)
+  * [Options](#options)
   * [Running tasks](#running-tasks)
 - [Available tasks](#available-tasks)
+- [Running multiple generators](#running-multiple-generators)
+  * [generate-dest](#generate-dest)
 - [API usage](#api-usage)
   * [Install locally](#install-locally)
   * [Use as a plugin](#use-as-a-plugin)
@@ -77,7 +80,11 @@ Running `$ gen package` will run the generator's [default task](#default), which
 1. prompt you to choose a license to generate
 2. prompt you for any information that's missing, if applicable (like author name, etc.)
 3. render the necessary template(s) using your answers
-4. write [the resulting files](#available-tasks) to the current working directory
+4. write the resulting file(s) to the current working directory
+
+**Conflict detection**
+
+This generator will [prompt you for feedback](https://github.com/node-base/base-fs-conflicts) _before overwrite existing files_. You can [set the destination](#customization) to a new directory if you want to avoid the prompts, or avoid accidentally overwriting files with unintentional answers => _'Oops! I meant "no! Don't overwrite!!!"'_.
 
 **What you should see in the terminal**
 
@@ -99,22 +106,23 @@ To see a general help menu and available commands for Generate's CLI, run:
 $ gen help
 ```
 
+### Options
+
+* `--dest`, `-d`: set the destination directory to use for generated files
+* `--no-hints`: Don't use hints in prompts (except for global data, like `author.name`)
+
 ### Running tasks
 
-Tasks on `generate-package` are run by passing the name of the task to run after the generator name, delimited by a comma:
-
-```sh
-$ gen package:foo
-       ^       ^
-generator     task
-```
+Generators use [tasks](https://github.com/generate/generate/blob/master/docs/tasks.md) for flow control. Tasks are run by passing the name of the task to run after the generator name, delimited by a comma.
 
 **Example**
 
-The following will run generator `foo`, task `bar`:
+For instance, the following will run generator `foo`, task `bar`:
 
 ```sh
 $ gen foo:bar
+       ^       ^
+generator     task
 ```
 
 **Default task**
@@ -164,6 +172,22 @@ $ gen package:package-hints
 ```
 
 Visit Generate's [documentation for tasks](https://github.com/generate/generate/blob/master/docs/tasks.md).
+
+## Running multiple generators
+
+Generate supports running multiple generators at once. The following generator(s) work well with `generate-package`:
+
+### generate-dest
+
+Run [generate-dest](https://github.com/generate/generate-dest) **before** `generate-package` to prompt for the destination directory to use for generated files.
+
+```sh
+$ gen dest package
+```
+
+**Example**
+
+![generate-package generate-dest example](https://raw.githubusercontent.com/generate/generate-package/master/docs/demo-dest.gif)
 
 ## API usage
 
@@ -252,6 +276,8 @@ module.exports = function(app) {
 Visit the [generator docs](https://github.com/generate/generate/blob/master/docs/generators.md) to learn more about creating, installing, using and publishing generators.
 
 ## Customization
+
+The following instructions can be used to override settings in `generate-package`. Visit the [Generate documentation](https://github.com/generate/generate/blob/master/docs/overriding-defaults.md) to learn about other ways to override defaults.
 
 ### Destination directory
 
