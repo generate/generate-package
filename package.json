@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "files": [
+    "generator.js",
     "index.js",
     "LICENSE",
     "README.md",
@@ -24,11 +25,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "common-questions": "^0.3.1",
-    "fs-exists-sync": "^0.1.0",
-    "generate-collections": "^0.3.5",
-    "generate-defaults": "^0.3.2",
-    "gulp-choose-files": "^0.1.2",
+    "generate-defaults": "^0.4.0",
     "gulp-normalize-pkg": "^0.1.2",
     "gulp-pick-keys": "^0.1.1",
     "is-valid-app": "^0.2.0",
@@ -36,7 +33,8 @@
   },
   "devDependencies": {
     "delete": "^0.3.2",
-    "generate": "^0.8.6",
+    "fs-exists-sync": "^0.1.0",
+    "generate": "^0.9.5",
     "global-modules": "^0.2.2",
     "gulp-format-md": "^0.1.9",
     "mocha": "^2.5.3"
@@ -55,6 +53,8 @@
     "front",
     "frontend",
     "generate",
+    "generate-generator",
+    "generate-plugin",
     "generategenerator",
     "generateplugin",
     "generator",
