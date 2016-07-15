@@ -1,6 +1,6 @@
 # generate-package [![NPM version](https://img.shields.io/npm/v/generate-package.svg?style=flat)](https://www.npmjs.com/package/generate-package) [![NPM downloads](https://img.shields.io/npm/dm/generate-package.svg?style=flat)](https://npmjs.org/package/generate-package) [![Build Status](https://img.shields.io/travis/generate/generate-package.svg?style=flat)](https://travis-ci.org/generate/generate-package)
 
-Generate a package.json from a pre-defined or user-defined template. This generator can be used from the command line when globally installed, or as a plugin or sub-generator in your own generator.
+[Generate](https://github.com/generate/generate) a package.json from a pre-defined or user-defined template. This generator can be used from the command line when globally installed, or as a plugin or sub-generator in your own generator.
 
 <br>
 ![generate-package demo](https://raw.githubusercontent.com/generate/generate-package/master/docs/demo.gif)
