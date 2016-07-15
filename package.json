@@ -90,9 +90,9 @@
     ],
     "related": {
       "list": [
-        "generate-dest",
-        "generate-file",
-        "generate-git"
+        "generate-readme",
+        "generate-license",
+        "generate-gitignore"
       ]
     },
     "reflinks": [

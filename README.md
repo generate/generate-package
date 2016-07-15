@@ -299,9 +299,9 @@ For example, to override the `foo.tmpl` template, add a template at the followin
 
 ### Related projects
 
-* [generate-dest](https://www.npmjs.com/package/generate-dest): Prompts the user for the destination directory to use. Can be used from the command… [more](https://github.com/generate/generate-dest) | [homepage](https://github.com/generate/generate-dest "Prompts the user for the destination directory to use. Can be used from the command line when installed globally, or as plugin or sub-generator in your generator.")
-* [generate-file](https://www.npmjs.com/package/generate-file): Generator for generating a single file from a template. | [homepage](https://github.com/generate/generate-file "Generator for generating a single file from a template.")
-* [generate-git](https://www.npmjs.com/package/generate-git): Generator for initializing a git repository and adding first commit. | [homepage](https://github.com/generate/generate-git "Generator for initializing a git repository and adding first commit.")
+* [generate-gitignore](https://www.npmjs.com/package/generate-gitignore): Generate a .gitignore file from the command line when Generate's CLI is installed globally, or… [more](https://github.com/generate/generate-gitignore) | [homepage](https://github.com/generate/generate-gitignore "Generate a .gitignore file from the command line when Generate's CLI is installed globally, or use as a plugin or sub-generator in your own generator to make it a continuous part of the build workflow when scaffolding out a new project.")
+* [generate-license](https://www.npmjs.com/package/generate-license): Generate a license file for a GitHub project. | [homepage](https://github.com/generate/generate-license "Generate a license file for a GitHub project.")
+* [generate-readme](https://www.npmjs.com/package/generate-readme): Generate a README.md using answers to prompts and data from the environment, like `package.json`, `.git… [more](https://github.com/jonschlinkert/generate-readme) | [homepage](https://github.com/jonschlinkert/generate-readme "Generate a README.md using answers to prompts and data from the environment, like`package.json`,`.git` config, etc. This generator can be run by command line if Generate is installed globally, or you can use this as a plugin or sub-generator in your own")
 
 ### Contributing
 
