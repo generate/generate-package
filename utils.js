@@ -9,6 +9,7 @@ require = utils;
  */
 
 require('gulp-normalize-pkg', 'normalize');
+require('gulp-choose-files', 'choose');
 require('gulp-pick-keys', 'pick');
 require('is-valid-app', 'isValid');
 require = fn;
