@@ -10,8 +10,23 @@ module.exports = function(app, base, env) {
    */
 
   app.use(require('generate-defaults'));
+  app.helper('date', require('helper-date'));
+
+  /**
+   * Middleware
+   */
+
+  app.postRender(/package\.json/, function(file, next) {
+    if (app.options.private) {
+      var pkg = JSON.parse(file.content);
+      pkg.private = true;
+      file.contents = new Buffer(JSON.stringify(pkg, null, 2));
+    }
+    next();
+  });
+
   app.postWrite(/package\.json/, function(file, next) {
-    app.pkg.data = JSON.parse(file.content);
+    app.pkg.data = JSON.parse(file.contents.toString());
     next();
   });
 
@@ -64,6 +79,25 @@ module.exports = function(app, base, env) {
       .pipe(app.renderFile('*'))
       .pipe(app.conflicts(app.cwd))
       .pipe(app.dest(app.cwd));
+  });
+
+  /**
+   * Generate a temporary `package.json` file in the cwd for dev, tests, etc. All of the
+   * fields in this file are pre-populated with bogus data.
+   *
+   * ```sh
+   * $ gen package:dev
+   * ```
+   * @name package:dev
+   * @api public
+   */
+
+  app.task('dev', {silent: true}, ['package-dev']);
+  app.task('package-dev', {silent: true}, function() {
+    return app.src('templates/$dev.json', {cwd: __dirname})
+      .pipe(app.renderFile('*')).on('error', console.log)
+      .pipe(app.conflicts(app.cwd)).on('error', console.log)
+      .pipe(app.dest(app.cwd)).on('error', console.log)
   });
 
   /**

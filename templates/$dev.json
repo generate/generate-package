@@ -1,0 +1,23 @@
+---
+rename:
+  basename: 'package.json'
+---
+{
+  "name": "dev-<%= date('YYYY-MM-DD-mm-ss') %>",
+  "private": true,
+  "description": "Temporary package.json",
+  "version": "0.0.0",
+  "homepage": "https://github.com/fake/dev-<%= date('YYYY-MM-DD-mm-ss') %>",
+  "author": "none",
+  "repository": "fake/dev-<%= date('YYYY-MM-DD-mm-ss') %>",
+  "bugs": {
+    "url": "https://github.com/fake/dev-<%= date('YYYY-MM-DD-mm-ss') %>/issues"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  }
+}
