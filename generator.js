@@ -55,7 +55,7 @@ module.exports = function(app, base, env) {
   app.task('new', {silent: true}, ['package-new']);
   app.task('package-new', {silent: true}, ['package-hints'], function() {
     return app.src('templates/$package.json', {cwd: __dirname})
-      .pipe(app.renderFile('*'))
+      .pipe(app.renderFile('*')).on('error', console.log)
       .pipe(utils.normalize())
       .pipe(app.conflicts(app.cwd))
       .pipe(app.dest(app.cwd));
@@ -76,7 +76,7 @@ module.exports = function(app, base, env) {
   app.task('raw', {silent: true}, ['package-raw']);
   app.task('package-raw', {silent: true}, ['package-hints'], function() {
     return app.src('templates/$package.json', {cwd: __dirname})
-      .pipe(app.renderFile('*'))
+      .pipe(app.renderFile('*')).on('error', console.log)
       .pipe(app.conflicts(app.cwd))
       .pipe(app.dest(app.cwd));
   });
@@ -96,8 +96,8 @@ module.exports = function(app, base, env) {
   app.task('package-dev', {silent: true}, function() {
     return app.src('templates/$dev.json', {cwd: __dirname})
       .pipe(app.renderFile('*')).on('error', console.log)
-      .pipe(app.conflicts(app.cwd)).on('error', console.log)
-      .pipe(app.dest(app.cwd)).on('error', console.log)
+      .pipe(app.conflicts(app.cwd))
+      .pipe(app.dest(app.cwd));
   });
 
   /**
@@ -114,7 +114,7 @@ module.exports = function(app, base, env) {
   app.task('package-choose', {silent: true}, ['package-hints'], function() {
     return app.src('templates/*.json', {cwd: __dirname})
       .pipe(utils.choose({key: 'stem'}))
-      .pipe(app.renderFile('*'))
+      .pipe(app.renderFile('*')).on('error', console.log)
       .pipe(utils.normalize())
       .pipe(utils.pick())
       .pipe(app.conflicts(app.cwd))
