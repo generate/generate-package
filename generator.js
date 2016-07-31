@@ -16,17 +16,17 @@ module.exports = function(app, base, env) {
    * Middleware
    */
 
-  app.postRender(/package\.json/, function(file, next) {
+  app.postRender(/package\.json$/, function(file, next) {
+    if (!file.basename === 'package.json') {
+      next();
+      return;
+    }
+
     if (app.options.private) {
       var pkg = JSON.parse(file.content);
       pkg.private = true;
       file.contents = new Buffer(JSON.stringify(pkg, null, 2));
     }
-    next();
-  });
-
-  app.postWrite(/package\.json/, function(file, next) {
-    app.pkg.data = JSON.parse(file.contents.toString());
     next();
   });
 
