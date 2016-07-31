@@ -1,7 +1,7 @@
 {
   "name": "generate-package",
   "description": "[Generate] a package.json from a pre-defined or user-defined template. This generator can be used from the command line when globally installed, or as a plugin or sub-generator in your own generator.",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "homepage": "https://github.com/generate/generate-package",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/generate-package",
