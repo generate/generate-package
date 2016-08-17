@@ -1,0 +1,9 @@
+---
+rename:
+  basename: 'package.json'
+---
+{
+  "name": "<%= ask('subname') %>",
+  "description": "<%= ask('description') %>",
+  "private": true
+}

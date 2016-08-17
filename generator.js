@@ -1,15 +1,21 @@
 'use strict';
 
+var path = require('path');
 var utils = require('./utils');
 
 module.exports = function(app, base, env) {
   if (!utils.isValid(app, 'generate-package')) return;
 
   /**
-   * Use other generators as plugins
+   * Set defaults
    */
 
   app.use(require('generate-defaults'));
+
+  /**
+   * Helpers
+   */
+
   app.helper('date', require('helper-date'));
 
   /**
@@ -35,21 +41,34 @@ module.exports = function(app, base, env) {
    * so other generators can use it.
    */
 
-  app.on('ask', function(val, key) {
+  app.on('answer', function(val, key) {
     if (val && /^author\./.test(key)) {
       app.base.data(key, val);
     }
   });
 
   /**
-   * Create a new package.json file, same as the [raw](#packageraw) task, but also
-   * normalizes the result using [normalize-pkg][].
+   * Generate a [normalized][normalize-pkg] package.json file in the current working directory.
+   *
+   * ```sh
+   * $ gen package
+   * # or
+   * $ gen package:new
+   * ```
+   * @name package
+   * @api public
+   */
+
+  app.task('package', {silent: true}, ['package-new']);
+  app.task('default', {silent: true}, ['package-new']);
+
+  /**
+   * Create a [normalized][normalize-pkg] package.json file.
    *
    * ```sh
    * $ gen package:new
    * ```
    * @name package:new
-   * @api public
    */
 
   app.task('new', {silent: true}, ['package-new']);
@@ -62,9 +81,7 @@ module.exports = function(app, base, env) {
   });
 
   /**
-   * Generate a `package.json` file in the cwd. To use a different template, run
-   * the [package:choose](#packagechoose) task, or pass the name on the `-t` or
-   * `--template` flag.
+   * Generate a `package.json` without normalizing the result.
    *
    * ```sh
    * $ gen package:raw
@@ -82,8 +99,40 @@ module.exports = function(app, base, env) {
   });
 
   /**
-   * Generate a temporary `package.json` file in the cwd for dev, tests, etc. All of the
-   * fields in this file are pre-populated with bogus data.
+   * Generate a minimal `package.json` file.
+   *
+   * ```sh
+   * $ gen package:min
+   * ```
+   * @name package:min
+   * @api public
+   */
+
+  app.task('min', ['package-min']);
+  app.task('package-min', {silent: true}, function() {
+    return file(app, 'min.json');
+  });
+
+  /**
+   * Generate a `package.json` or a sub-directory in a project, with only
+   * `name`, `description` and `private` fields defined.
+   *
+   * ```sh
+   * $ gen package:sub
+   * ```
+   * @name package:sub
+   * @api public
+   */
+
+  app.task('sub', ['package-sub']);
+  app.task('package-sub', {silent: true}, function() {
+    app.question('subname', 'What name would you like to use?', {default: app.pkg.get('name')});
+    return file(app, 'sub.json');
+  });
+
+  /**
+   * Generate a fake `package.json` file to use for development. All of the
+   * fields in this file are pre-populated with fake data.
    *
    * ```sh
    * $ gen package:dev
@@ -92,16 +141,13 @@ module.exports = function(app, base, env) {
    * @api public
    */
 
-  app.task('dev', {silent: true}, ['package-dev']);
+  app.task('dev', ['package-dev']);
   app.task('package-dev', {silent: true}, function() {
-    return app.src('templates/$dev.json', {cwd: __dirname})
-      .pipe(app.renderFile('*')).on('error', console.log)
-      .pipe(app.conflicts(app.cwd))
-      .pipe(app.dest(app.cwd));
+    return file(app, 'dev.json');
   });
 
   /**
-   * Prompts the user to choose the template to use for generating a `package.json` file to the working directory, or specified `-d` | `--dest`.
+   * Prompts the user to choose the template and fields to use for generating a `package.json` file.
    *
    * ```sh
    * $ gen package:choose
@@ -110,7 +156,7 @@ module.exports = function(app, base, env) {
    * @api public
    */
 
-  app.task('choose', {silent: true}, ['package-choose']);
+  app.task('choose', ['package-choose']);
   app.task('package-choose', {silent: true}, ['package-hints'], function() {
     return app.src('templates/*.json', {cwd: __dirname})
       .pipe(utils.choose({key: 'stem'}))
@@ -128,7 +174,6 @@ module.exports = function(app, base, env) {
    * $ gen package:package-hints
    * ```
    * @name package:package-hints
-   * @api public
    */
 
   app.task('package-hints', {silent: true}, function(cb) {
@@ -137,17 +182,12 @@ module.exports = function(app, base, env) {
     }
     cb();
   });
-
-  /**
-   * Alias for the `package` task to allow running the generator
-   * with the following command:
-   *
-   * ```sh
-   * $ gen package
-   * ```
-   * @name default
-   */
-
-  app.task('package', ['package-new']);
-  app.task('default', ['package-new']);
 };
+
+function file(app, pattern) {
+  var src = app.options.srcBase || path.join(__dirname, 'templates');
+  return app.src(pattern, {cwd: src})
+    .pipe(app.renderFile('*')).on('error', console.log)
+    .pipe(app.conflicts(app.cwd))
+    .pipe(app.dest(app.cwd));
+}
