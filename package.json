@@ -82,7 +82,9 @@
     "yo"
   ],
   "verb": {
-    "toc": true,
+    "toc": {
+      "method": "preWrite"
+    },
     "layout": "generator",
     "tasks": [
       "readme"

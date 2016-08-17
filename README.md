@@ -22,6 +22,12 @@ Generate a package.json from a pre-defined or user-defined template. This genera
   * [Usage](#usage)
   * [Help](#help)
 - [Tasks](#tasks)
+  * [package](#package)
+  * [package:raw](#packageraw)
+  * [package:min](#packagemin)
+  * [package:sub](#packagesub)
+  * [package:dev](#packagedev)
+  * [package:choose](#packagechoose)
 - [About](#about)
   * [Related projects](#related-projects)
   * [Community](#community)
@@ -112,7 +118,7 @@ $ gen help
 
 All available tasks.
 
-### [package](generator.js#L62)
+### [package](generator.js#L51)
 
 Generate a [normalized](https://github.com/jonschlinkert/normalize-pkg) package.json file in the current working directory.
 
@@ -124,7 +130,7 @@ $ gen package
 $ gen package:new
 ```
 
-### [package:raw](generator.js#L93)
+### [package:raw](generator.js#L82)
 
 Generate a `package.json` without normalizing the result.
 
@@ -134,7 +140,7 @@ Generate a `package.json` without normalizing the result.
 $ gen package:raw
 ```
 
-### [package:min](generator.js#L111)
+### [package:min](generator.js#L100)
 
 Generate a minimal `package.json` file.
 
@@ -144,7 +150,7 @@ Generate a minimal `package.json` file.
 $ gen package:min
 ```
 
-### [package:sub](generator.js#L127)
+### [package:sub](generator.js#L116)
 
 Generate a `package.json` or a sub-directory in a project, with only `name`, `description` and `private` fields defined.
 
@@ -154,7 +160,7 @@ Generate a `package.json` or a sub-directory in a project, with only `name`, `de
 $ gen package:sub
 ```
 
-### [package:dev](generator.js#L144)
+### [package:dev](generator.js#L133)
 
 Generate a fake `package.json` file to use for development. All of the fields in this file are pre-populated with fake data.
 
@@ -164,7 +170,7 @@ Generate a fake `package.json` file to use for development. All of the fields in
 $ gen package:dev
 ```
 
-### [package:choose](generator.js#L159)
+### [package:choose](generator.js#L148)
 
 Prompts the user to choose the template and fields to use for generating a `package.json` file.
 
