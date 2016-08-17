@@ -37,17 +37,6 @@ module.exports = function(app, base, env) {
   });
 
   /**
-   * Listener: add `author` data to the cache on the base instance,
-   * so other generators can use it.
-   */
-
-  app.on('answer', function(val, key) {
-    if (val && /^author\./.test(key)) {
-      app.base.data(key, val);
-    }
-  });
-
-  /**
    * Generate a [normalized][normalize-pkg] package.json file in the current working directory.
    *
    * ```sh
