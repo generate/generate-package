@@ -1,4 +1,5 @@
 ---
+layout: false
 rename:
   basename: 'package.json'
 ---
