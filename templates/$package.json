@@ -18,5 +18,8 @@ rename:
   "license": "<%= ask('license', {default: 'MIT'}) %>",
   "scripts": {
     "test": "mocha"
-  }
+  },
+  "keywords": [
+    "generategenerator"
+  ]
 }
