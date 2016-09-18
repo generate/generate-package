@@ -4,6 +4,10 @@
   "version": "0.6.0",
   "homepage": "https://github.com/generate/generate-package",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "contributors": [
+    "Dawson Botsford <dawsonbotsford@gmail.com> (http://dawsonbotsford.com)",
+    "Jon Schlinkert <jon.schlinkert@sellside.com> (http://twitter.com/jonschlinkert)"
+  ],
   "repository": "generate/generate-package",
   "bugs": {
     "url": "https://github.com/generate/generate-package/issues"
@@ -12,8 +16,6 @@
   "files": [
     "generator.js",
     "index.js",
-    "LICENSE",
-    "README.md",
     "templates",
     "utils.js"
   ],
@@ -25,12 +27,12 @@
     "test": "mocha"
   },
   "dependencies": {
-    "generate-defaults": "^0.6.0",
+    "generate-defaults": "^0.6.4",
     "gulp-choose-files": "^0.1.3",
     "gulp-normalize-pkg": "^0.1.2",
     "gulp-pick-keys": "^0.1.1",
     "helper-date": "^0.2.2",
-    "is-valid-app": "^0.2.0",
+    "is-valid-app": "^0.2.1",
     "lazy-cache": "^2.0.1"
   },
   "devDependencies": {
