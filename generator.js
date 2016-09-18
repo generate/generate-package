@@ -6,10 +6,6 @@ var utils = require('./utils');
 module.exports = function(app, base, env) {
   if (!utils.isValid(app, 'generate-package')) return;
 
-  /**
-   * Set defaults
-   */
-
   app.use(require('generate-defaults'));
 
   /**
@@ -17,6 +13,21 @@ module.exports = function(app, base, env) {
    */
 
   app.helper('date', require('helper-date'));
+  app.asyncHelper('getHomepage', function(locals, cb) {
+    if (locals.owner && locals.name) {
+      cb(null, `https://github.com/${locals.owner} %>/${locals.name}`);
+    } else if (locals.homepage) {
+      cb(null, locals.homepage);
+    } else if (locals.repo) {
+      cb(null, `https://github.com/${locals.repo}`);
+    } else {
+      app.question('homepage', 'Project homepage?');
+      app.ask('homepage', function(err, answers) {
+        if (err) return cb(err);
+        cb(null, answers.homepage);
+      });
+    }
+  });
 
   /**
    * Middleware
@@ -61,7 +72,7 @@ module.exports = function(app, base, env) {
    */
 
   app.task('new', {silent: true}, ['package-new']);
-  app.task('package-new', {silent: true}, ['package-hints'], function() {
+  app.task('package-new', {silent: true}, function() {
     return app.src('templates/$package.json', {cwd: __dirname})
       .pipe(app.renderFile('*')).on('error', console.log)
       .pipe(utils.normalize())
@@ -80,7 +91,7 @@ module.exports = function(app, base, env) {
    */
 
   app.task('raw', {silent: true}, ['package-raw']);
-  app.task('package-raw', {silent: true}, ['package-hints'], function() {
+  app.task('package-raw', {silent: true}, function() {
     return app.src('templates/$package.json', {cwd: __dirname})
       .pipe(app.renderFile('*')).on('error', console.log)
       .pipe(app.conflicts(app.cwd))
@@ -146,7 +157,7 @@ module.exports = function(app, base, env) {
    */
 
   app.task('choose', ['package-choose']);
-  app.task('package-choose', {silent: true}, ['package-hints'], function() {
+  app.task('package-choose', {silent: true}, function() {
     return app.src('templates/*.json', {cwd: __dirname})
       .pipe(utils.choose({key: 'stem'}))
       .pipe(app.renderFile('*')).on('error', console.log)
@@ -154,22 +165,6 @@ module.exports = function(app, base, env) {
       .pipe(utils.pick())
       .pipe(app.conflicts(app.cwd))
       .pipe(app.dest(app.cwd));
-  });
-
-  /**
-   * Merge data to be used for hints onto the context.
-   *
-   * ```sh
-   * $ gen package:package-hints
-   * ```
-   * @name package:package-hints
-   */
-
-  app.task('package-hints', {silent: true}, function(cb) {
-    if (app.options.hints !== false) {
-      app.data(app.base.cache.data);
-    }
-    cb();
   });
 };
 
