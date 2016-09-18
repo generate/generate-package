@@ -35,21 +35,8 @@ describe('generate-package', function() {
     app.option('askWhen', 'not-answered');
 
     // provide template data to avoid prompts
-    app.data({
-      author: {
-        name: 'Jon Schlinkert',
-        username: 'jonschlnkert',
-        url: 'https://github.com/jonschlinkert'
-      },
-      name: 'foo',
-      description: 'bar',
-      version: '0.1.0',
-      project: {
-        name: 'foo',
-        description: 'bar',
-        version: '0.1.0'
-      }
-    });
+    app.data(require('../package'));
+    app.data('project', require('../package'));
   });
 
   describe('plugin', function() {
@@ -73,7 +60,6 @@ describe('generate-package', function() {
       assert(app.tasks.hasOwnProperty('package-new'));
       assert(app.tasks.hasOwnProperty('package-raw'));
       assert(app.tasks.hasOwnProperty('package-choose'));
-      assert(app.tasks.hasOwnProperty('package-hints'));
     });
 
     it('should run the `default` task with .build', function(cb) {
