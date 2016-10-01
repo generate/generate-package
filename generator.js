@@ -13,21 +13,6 @@ module.exports = function(app, base, env) {
    */
 
   app.helper('date', require('helper-date'));
-  app.asyncHelper('getHomepage', function(locals, cb) {
-    if (locals.owner && locals.name) {
-      cb(null, `https://github.com/${locals.owner} %>/${locals.name}`);
-    } else if (locals.homepage) {
-      cb(null, locals.homepage);
-    } else if (locals.repo) {
-      cb(null, `https://github.com/${locals.repo}`);
-    } else {
-      app.question('homepage', 'Project homepage?');
-      app.ask('homepage', function(err, answers) {
-        if (err) return cb(err);
-        cb(null, answers.homepage);
-      });
-    }
-  });
 
   /**
    * Middleware

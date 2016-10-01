@@ -7,7 +7,7 @@ rename:
   "name": "<%= ask('name') %>",
   "description": "<%= ask('description') %>",
   "version": "<%= ask('version') %>",
-  "homepage": "https://github.com/<%= ask('owner') %>/<%= ask('name') %>",
+  "homepage": "<%= ask('homepage') %>",
   "author": "<%= ask('author.name') %> (<%= ask('author.url') %>)",
   "repository": "<%= ask('owner') %>/<%= ask('name') %>",
   "bugs": {
