@@ -15,7 +15,7 @@ rename:
     "url": "https://github.com/fake/dev-<%= date('YYYY-MM-DD-mm-ss') %>/issues"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4"
   },
   "license": "MIT",
   "scripts": {
