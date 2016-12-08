@@ -105,11 +105,7 @@
       "assemble",
       "base",
       "generate",
-      "generate-dest",
-      "gulp",
-      "normalize-pkg",
-      "verb",
-      "verb-readme-generator"
+      "gulp"
     ],
     "lint": {
       "reflinks": true
