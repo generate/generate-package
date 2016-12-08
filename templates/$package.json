@@ -14,7 +14,7 @@ rename:
     "url": "https://github.com/<%= ask('owner') %>/<%= ask('name') %>/issues"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4"
   },
   "license": "<%= ask('license', {default: 'MIT'}) %>",
   "scripts": {
