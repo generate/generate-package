@@ -5,6 +5,6 @@ rename:
 ---
 {
   "name": "<%= ask('subname') %>",
-  "description": "<%= ask('description') %>",
+  "description": "<%= escapeQuotes(ask('description')) %>",
   "private": true
 }

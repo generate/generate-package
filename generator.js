@@ -13,6 +13,9 @@ module.exports = function(app, base, env) {
    */
 
   app.helper('date', require('helper-date'));
+  app.helper('escapeQuotes', function(str) {
+    return str.replace(/\\?"/g, '\\"');
+  });
 
   /**
    * Middleware

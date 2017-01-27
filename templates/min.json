@@ -5,7 +5,7 @@ rename:
 ---
 {
   "name": "<%= ask('name') %>",
-  "description": "<%= ask('description') %>",
+  "description": "<%= escapeQuotes(ask('description')) %>",
   "version": "<%= ask('version') %>",
   "homepage": "<%= ask('homepage') %>",
   "author": "<%= ask('author.name') %> (<%= ask('author.url') %>)",

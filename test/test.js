@@ -30,13 +30,18 @@ function exists(name, cb) {
 describe('generate-package', function() {
   beforeEach(function() {
     app = generate({silent: true});
-    app.cwd = actual();
-    app.option('dest', actual());
-    app.option('askWhen', 'not-answered');
 
-    // provide template data to avoid prompts
-    app.data(require('../package'));
-    app.data('project', require('../package'));
+    app.use(function fn() {
+      if (!this.isApp) return;
+      this.cwd = actual();
+      this.option('dest', actual());
+      this.option('askWhen', 'not-answered');
+
+      // provide template data to avoid prompts
+      this.data(require('../package'));
+      this.data('project', require('../package'));
+      return fn;
+    });
   });
 
   describe('plugin', function() {
@@ -123,6 +128,26 @@ describe('generate-package', function() {
     });
 
     it('should run the `default` task when defined explicitly', function(cb) {
+      app.register('package', generator);
+      app.generate('package:default', exists('package.json', cb));
+    });
+
+    it('should run the `default` task when defined explicitly', function(cb) {
+      app.register('package', generator);
+      app.generate('package:default', exists('package.json', cb));
+    });
+
+    it('should escape quotes in the description field', function(cb) {
+      app.use(function fn() {
+        if (!this.isApp) return;
+        this.data({description: 'foo "bar" baz'});
+        this.postRender(/package/, function(file, next) {
+          assert(/"description": "foo \\"bar\\" baz"/.test(file.content));
+          next();
+        });
+        return fn;
+      });
+
       app.register('package', generator);
       app.generate('package:default', exists('package.json', cb));
     });
