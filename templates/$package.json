@@ -20,7 +20,5 @@ rename:
   "scripts": {
     "test": "mocha"
   },
-  "keywords": [
-    "generategenerator"
-  ]
+  "keywords": []
 }
