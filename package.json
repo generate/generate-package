@@ -5,8 +5,8 @@
   "homepage": "https://github.com/generate/generate-package",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "contributors": [
-    "Dawson Botsford <dawsonbotsford@gmail.com> (http://dawsonbotsford.com)",
-    "Jon Schlinkert <jon.schlinkert@sellside.com> (http://twitter.com/jonschlinkert)"
+    "Dawson Botsford (https://dawsbot.com)",
+    "Jon Schlinkert <jon.schlinkert@sellside.com> (https://twitter.com/jonschlinkert)"
   ],
   "repository": "generate/generate-package",
   "bugs": {
